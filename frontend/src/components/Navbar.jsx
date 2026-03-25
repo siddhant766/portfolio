@@ -73,7 +73,7 @@ export default function Navbar({ toggleTheme, theme }) {
               </button>
 
               <a
-                href=href="https://portfolio-ubkv.vercel.app/admin"
+                href="https://portfolio-ubkv.vercel.app/admin"
                 target="_blank"
                 rel="noreferrer"
                 onClick={() => setMenuOpen(false)}
