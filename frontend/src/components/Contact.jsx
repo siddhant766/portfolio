@@ -2,6 +2,8 @@ import SplitText from "./SplitText";
 import BorderGlow from "./BorderGlow";
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState("idle"); // idle, loading, success, error
@@ -43,7 +45,7 @@ export default function Contact() {
     setStatus("loading");
 
     try {
-      const response = await fetch("http://localhost:5000/api/contact", {
+      const response = await fetch(`${API_URL}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -59,14 +61,14 @@ export default function Contact() {
       }
     } catch (err) {
       console.error(err);
-      setErrorMessage("Could not reach the server. Make sure the backend is running.");
+      setErrorMessage("Could not reach the server. Please try again later.");
       setStatus("error");
     }
-    
+
     // Automatically reset error status styling after a few seconds
     if (status !== 'success') {
       setTimeout(() => {
-         if(status === 'error') setStatus("idle");
+        if (status === 'error') setStatus("idle");
       }, 3000);
     }
   };

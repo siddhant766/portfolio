@@ -1,6 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = import.meta.env.VITE_API_URL;
+const PORTFOLIO_URL = import.meta.env.VITE_PORTFOLIO_URL;
+
 export default function AdminDashboard() {
   const [stats, setStats] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -21,8 +24,8 @@ export default function AdminDashboard() {
         const headers = { 'Authorization': `Bearer ${token}` };
 
         const [statsRes, messagesRes] = await Promise.all([
-          fetch("http://localhost:5000/api/admin/stats", { headers }),
-          fetch("http://localhost:5000/api/admin/messages", { headers })
+          fetch(`${API_URL}/api/admin/stats`, { headers }),
+          fetch(`${API_URL}/api/admin/messages`, { headers })
         ]);
 
         if (statsRes.status === 401 || messagesRes.status === 401) {
@@ -54,7 +57,7 @@ export default function AdminDashboard() {
 
   const markAsRead = async (id) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/messages/${id}`, {
+      const res = await fetch(`${API_URL}/api/admin/messages/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -73,9 +76,9 @@ export default function AdminDashboard() {
 
   const deleteMessage = async (id) => {
     if (!window.confirm("Are you sure you want to delete this message?")) return;
-    
+
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/messages/${id}`, {
+      const res = await fetch(`${API_URL}/api/admin/messages/${id}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -136,7 +139,7 @@ export default function AdminDashboard() {
           </p>
         </div>
         <div style={{ display: 'flex', gap: '12px' }}>
-          <a href="http://localhost:5175" className="btn btn-ghost" style={{ fontSize: '0.85rem' }}>← Portfolio</a>
+          <a href={PORTFOLIO_URL} className="btn btn-ghost" style={{ fontSize: '0.85rem' }}>← Portfolio</a>
           <button onClick={handleLogout} className="btn btn-ghost" style={{ fontSize: '0.85rem', color: '#f87171', borderColor: '#f87171' }}>
             Logout
           </button>

@@ -1,0 +1,23 @@
+# render.yaml — drop this in the repo root and Render will auto-detect it.
+# Use: https://dashboard.render.com → New → Blueprint
+
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false          # Set manually in Render dashboard
+      - key: ADMIN_USER
+        sync: false
+      - key: ADMIN_PASS_HASH
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: ALLOWED_ORIGINS
+        sync: false          # e.g. https://yourportfolio.vercel.app,https://youradmin.vercel.app

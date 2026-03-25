@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+const API_URL = import.meta.env.VITE_API_URL;
+const PORTFOLIO_URL = import.meta.env.VITE_PORTFOLIO_URL;
+
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +18,7 @@ export default function AdminLogin() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/login", {
+      const res = await fetch(`${API_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -150,7 +153,7 @@ export default function AdminLogin() {
         </form>
 
         <div style={{ textAlign: 'center', marginTop: '24px' }}>
-          <a href="http://localhost:5175" style={{ fontFamily: 'var(--mono)', fontSize: '0.8rem', color: 'var(--t4)', textDecoration: 'none' }}>
+          <a href={PORTFOLIO_URL} style={{ fontFamily: 'var(--mono)', fontSize: '0.8rem', color: 'var(--t4)', textDecoration: 'none' }}>
             ← Back to Portfolio
           </a>
         </div>

@@ -18,10 +18,11 @@ import Footer from './components/Footer';
 import LightRays from './components/LightRays';
 import ScrollToTop from './components/ScrollToTop';
 
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Portfolio() {
   const [theme, setTheme] = useState('dark');
-  
+
   // Theme Toggle Logic
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
@@ -65,7 +66,9 @@ function Portfolio() {
 
   // Track visitor on page load
   useEffect(() => {
-    fetch("http://localhost:5000/api/visit", { method: 'POST' }).catch(() => {});
+    if (API_URL) {
+      fetch(`${API_URL}/api/visit`, { method: 'POST' }).catch(() => {});
+    }
   }, []);
 
   return (
@@ -92,7 +95,7 @@ function Portfolio() {
         />
       </div>
       <div className="glow"></div>
-      
+
       <Navbar toggleTheme={toggleTheme} theme={theme} />
       <Hero />
       <Stats />
