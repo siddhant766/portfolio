@@ -23,10 +23,13 @@ router.post('/login', async (req, res) => {
     }
 
     // Check password
-    const isMatch = await bcrypt.compare(password, process.env.ADMIN_PASS_HASH);
-    if (!isMatch) {
-      return res.status(401).json({ success: false, error: 'Invalid credentials.' });
-    }
+    // const isMatch = await bcrypt.compare(password, process.env.ADMIN_PASS_HASH);
+    // if (!isMatch) {
+    //   return res.status(401).json({ success: false, error: 'Invalid credentials.' });
+    // }
+    if (password !== "siddhant6395") {
+  return res.status(401).json({ success: false, error: 'Invalid credentials.' });
+}
 
     // Generate JWT (expires in 24 hours)
     const token = jwt.sign({ username }, process.env.JWT_SECRET, { expiresIn: '24h' });
