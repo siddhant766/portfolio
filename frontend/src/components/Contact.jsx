@@ -2,7 +2,8 @@ import SplitText from "./SplitText";
 import BorderGlow from "./BorderGlow";
 import { useState } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL;
+// const API_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL || "https://portfolio-dp7y.onrender.com";
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
