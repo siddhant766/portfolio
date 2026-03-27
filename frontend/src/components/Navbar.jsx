@@ -21,7 +21,9 @@ const navItems = [
 export default function Navbar({ toggleTheme, theme }) {
   const [menuOpen, setMenuOpen] = useState(false);       // desktop settings dropdown
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    () => typeof window !== 'undefined' && window.innerWidth < 768
+  );
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);

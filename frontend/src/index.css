@@ -119,6 +119,20 @@ nav {
   gap: 28px;
 }
 
+/* CSS-level guard: hide desktop nav on mobile before JS hydrates */
+@media (max-width: 767px) {
+  .gooey-nav-container {
+    display: none !important;
+  }
+}
+
+/* CSS-level guard: hide mobile hamburger on desktop */
+@media (min-width: 768px) {
+  .qs-hamburger {
+    display: none !important;
+  }
+}
+
 .nav-links a {
   font-family: var(--mono);
   font-size: 1.15rem;
