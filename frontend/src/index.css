@@ -146,6 +146,11 @@ nav {
   z-index: 1;
   overflow-x: hidden;
 }
+@media (min-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
 .hero-left {
   display: flex;
