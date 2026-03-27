@@ -137,7 +137,7 @@ nav {
 .hero {
   min-height: 100vh;
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;
   gap: clamp(3rem, 8vw, 12vw);
@@ -2504,4 +2504,4 @@ body {
   color: var(--t1);
   transform: translateY(-2px);
 }
-
+
