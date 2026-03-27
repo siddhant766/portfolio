@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import SplitText from "./SplitText";
 import MagicBento from './MagicBento';
 
@@ -23,7 +24,22 @@ const CERTS = [
   { color: '#0a0a0a', title: 'Binary Blitz', description: 'ISTE', label: '🏆', href: '/Binary Blitzpdf.pdf', span: 'col-span-2' },
 ];
 
+const MOBILE_PREVIEW = 4; // certs visible initially on mobile
+
 export default function Certifications() {
+  const [isMobile, setIsMobile] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  const visibleCerts = isMobile && !expanded ? CERTS.slice(0, MOBILE_PREVIEW) : CERTS;
+  const hiddenCount = CERTS.length - MOBILE_PREVIEW;
+
   return (
     <section id="certifications">
       <div className="sec-head reveal">
@@ -48,8 +64,8 @@ export default function Certifications() {
       </div>
 
       <div className="reveal" style={{ width: '100%' }}>
-        <MagicBento 
-          items={CERTS}
+        <MagicBento
+          items={visibleCerts}
           textAutoHide={true}
           enableStars
           enableSpotlight
@@ -63,6 +79,18 @@ export default function Certifications() {
           disableAnimations={false}
         />
       </div>
+
+      {/* View More / Show Less — mobile only */}
+      {isMobile && (
+        <div className="cert-toggle-wrap">
+          <button
+            className="cert-view-more-btn"
+            onClick={() => setExpanded(prev => !prev)}
+          >
+            {expanded ? '↑ Show Less' : `View ${hiddenCount} More ↓`}
+          </button>
+        </div>
+      )}
     </section>
   );
 }
