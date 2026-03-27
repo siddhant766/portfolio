@@ -183,7 +183,7 @@ export default function GithubProfile({ theme = 'dark' }) {
           alt={`${user.login} avatar`} 
           style={{ width: '80px', height: '80px', borderRadius: '50%', border: '2px solid var(--line)' }} 
         />
-        <div style={{ flex: 1 }}>
+        <div style={{ flex: 1, minWidth: 0 }}>
           <h3 style={{ fontSize: '1.4rem', color: 'var(--t1)', fontWeight: '700', marginBottom: '4px' }}>
             {user.name || user.login}
           </h3>
@@ -199,7 +199,7 @@ export default function GithubProfile({ theme = 'dark' }) {
             </span>
           </div>
           
-          <div style={{ marginTop: '32px', width: '100%', overflowX: 'auto', paddingBottom: '8px' }}>
+          <div style={{ marginTop: '32px', width: '100%', maxWidth: '100%', overflowX: 'auto', paddingBottom: '8px' }}>
             <h4 style={{ fontSize: '1.1rem', color: 'var(--t2)', marginBottom: '16px', fontWeight: '500' }}>
               Contribution Activity
             </h4>
