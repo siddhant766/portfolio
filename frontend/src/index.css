@@ -2531,3 +2531,22 @@ body {
   transform: translateY(-2px);
 }
 
+/* --- USER REQUESTED FIXES FOR MOBILE OVERFLOW --- */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.profile-wrap-circular {
+  overflow: hidden;
+}
+
+.floating-icon {
+  position: absolute;
+  width: 55px;
+  height: 55px;
+  max-width: 15vw;
+  max-height: 15vw;
+}
+
