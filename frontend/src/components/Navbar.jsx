@@ -70,16 +70,25 @@ export default function Navbar({ toggleTheme, theme }) {
     <nav ref={navRef}>
       <div className="nav-logo">
         {theme === 'light' ? (
-          <span style={{
-            fontFamily: 'var(--sans)',
-            fontWeight: 800,
-            fontSize: '1.35rem',
-            letterSpacing: '-0.04em',
-            color: '#0a0a0a',
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
             userSelect: 'none',
           }}>
-            Siddhant
-          </span>
+            {/* Glowing PC icon — light mode only */}
+            <span className="nav-pc-icon">💻</span>
+
+            <span style={{
+              fontFamily: 'var(--sans)',
+              fontWeight: 800,
+              fontSize: '1.65rem',
+              letterSpacing: '-0.04em',
+              color: '#0a0a0a',
+            }}>
+              Siddhant
+            </span>
+          </div>
         ) : (
           <img src={logo} alt="Logo" />
         )}
