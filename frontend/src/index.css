@@ -591,8 +591,14 @@ section {
 /* PROJECTS */
 .proj-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2px;
+}
+
+@media (min-width: 640px) {
+  .proj-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
 }
 
 .proj-card {
@@ -643,10 +649,18 @@ section {
 
 .proj-date {
   font-family: var(--mono);
-  font-size: 1.08rem;
+  font-size: clamp(0.78rem, 2.5vw, 1.08rem);
   letter-spacing: .07em;
   color: var(--t4);
   white-space: nowrap;
+  flex-shrink: 0;
+}
+
+@media (max-width: 400px) {
+  .proj-date {
+    white-space: normal;
+    font-size: 0.75rem;
+  }
 }
 
 .atags {
@@ -657,7 +671,7 @@ section {
 
 .atag {
   font-family: var(--mono);
-  font-size: 1.08rem;
+  font-size: clamp(0.75rem, 2.5vw, 1.08rem);
   letter-spacing: .04em;
   color: var(--ac2);
   background: var(--asoft);
@@ -678,9 +692,12 @@ section {
   gap: 10px;
   align-items: flex-start;
   font-family: var(--mono);
-  font-size: 1.22rem;
-  line-height: 1.85;
+  font-size: clamp(0.82rem, 2.8vw, 1.22rem);
+  line-height: 1.7;
   color: var(--t3);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  min-width: 0;
 }
 
 .bullet::before {
@@ -695,7 +712,7 @@ section {
   align-items: center;
   gap: 6px;
   font-family: var(--mono);
-  font-size: 1.12rem;
+  font-size: clamp(0.78rem, 2.5vw, 1.12rem);
   letter-spacing: .1em;
   text-transform: uppercase;
   color: var(--ac);
