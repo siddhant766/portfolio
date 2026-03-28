@@ -69,7 +69,20 @@ export default function Navbar({ toggleTheme, theme }) {
   return (
     <nav ref={navRef}>
       <div className="nav-logo">
-        <img src={logo} alt="Logo" />
+        {theme === 'light' ? (
+          <span style={{
+            fontFamily: 'var(--sans)',
+            fontWeight: 800,
+            fontSize: '1.35rem',
+            letterSpacing: '-0.04em',
+            color: '#0a0a0a',
+            userSelect: 'none',
+          }}>
+            Siddhant
+          </span>
+        ) : (
+          <img src={logo} alt="Logo" />
+        )}
       </div>
 
       <div className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
