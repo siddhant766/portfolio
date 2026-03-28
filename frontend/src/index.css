@@ -1606,20 +1606,18 @@ body {
   .profile-wrap-circular {
     width: 220px;
     height: 330px;
-    padding: 0 30px;
   }
 
-  /* Floating tech icons */
+  /* Floating tech icons — tuck them in so they don't overflow */
   .floating-icon {
     width: 40px;
     height: 40px;
     font-size: 1.2rem;
   }
 
-  .icon-node  { right: -5%; }
-  .icon-mongo { right: -5%; }
-  .icon-laravel { left: -5%; }
-  .icon-react { left: -5%; }
+  .icon-node  { right: 0; }
+  .icon-mongo { right: 0; }
+  .icon-laravel { left: 0; }
 
   /* HERO redesign */
   .hero-headline {
@@ -1773,7 +1771,6 @@ body {
   .profile-wrap-circular {
     width: 260px;
     height: 390px;
-    padding: 0 35px;
   }
 
   .floating-icon {
@@ -1782,8 +1779,8 @@ body {
     font-size: 1.4rem;
   }
 
-  .icon-node  { right: -6%; }
-  .icon-mongo { right: -6%; }
+  .icon-node  { right: 0%; }
+  .icon-mongo { right: 0%; }
 
   .hero-btns-redesign {
     gap: 14px;
@@ -2207,9 +2204,6 @@ body {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  /* Padding creates a safe zone so floating icons never get clipped */
-  padding: 0 40px;
-  box-sizing: content-box;
 }
 
 .glowing-ring {
@@ -2302,7 +2296,7 @@ body {
 
 .icon-react {
   top: 8%;
-  left: -8%;
+  left: 2%;
   color: var(--t2);
   animation-delay: 0s;
 }
@@ -2317,7 +2311,7 @@ body {
 
 .icon-node {
   top: 15%;
-  right: -8%;
+  right: -2%;
   color: var(--t2);
   animation-delay: 1.2s;
 }
@@ -2332,7 +2326,7 @@ body {
 
 .icon-laravel {
   bottom: 22%;
-  left: -8%;
+  left: -4%;
   color: var(--t2);
   animation-delay: 2.4s;
 }
@@ -2347,7 +2341,7 @@ body {
 
 .icon-mongo {
   bottom: 32%;
-  right: -8%;
+  right: -6%;
   color: var(--t2);
   animation-delay: 1.8s;
 }
