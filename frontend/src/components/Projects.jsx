@@ -1,3 +1,4 @@
+import { useState } from "react";
 import SplitText from "./SplitText";
 import BorderGlow from "./BorderGlow";
 
@@ -7,7 +8,115 @@ const ArrowIcon = () => (
   </svg>
 );
 
+const ChevronIcon = ({ expanded }) => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    style={{
+      transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+      transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+    }}
+  >
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
+
+const projects = [
+  {
+    id: "git-workflow-visualizer",
+    name: "Git Workflow Visualizer",
+    date: "Mar 2025",
+    tags: ["React", "D3.js", "JavaScript", "Vercel"],
+    bullets: [
+      "Interactive visual tool that animates Git branching strategies — including GitFlow, trunk-based development, and feature branching — helping developers intuitively understand complex workflows.",
+      "Renders live commit graphs with branch lanes, merge arrows, and color-coded tags; users can step through each stage of a workflow to see exactly how commits propagate.",
+    ],
+    link: "https://git-workflow-visualizer.vercel.app/",
+  },
+  {
+    id: "real-estate-platform",
+    name: "Real Estate Platform",
+    date: "May 2025",
+    tags: ["React", "Node.js", "Tailwind", "Vercel"],
+    bullets: [
+      "Engineered a fully responsive real estate platform with property listing, advanced search & filters, and secure contact management.",
+      "Deployed via CI/CD on Vercel; adopted by a local real estate firm demonstrating real-world commercial impact.",
+    ],
+    link: "https://realestatefrontend-sooty.vercel.app/",
+  },
+  {
+    id: "leather-cad",
+    name: "LeatherCAD",
+    date: "Mar 2025",
+    tags: ["React", "Node.js", "Canvas API", "Vercel"],
+    bullets: [
+      "Web-based CAD platform purpose-built for leather product design, enabling small entrepreneurs to sketch, measure, and iterate on patterns without expensive desktop software.",
+      "Features an interactive canvas editor with real-time shape tools, dimension snapping, and export functionality — streamlining the design-to-production workflow.",
+    ],
+    link: "https://leather-cad.vercel.app/",
+  },
+  {
+    id: "findme-on-github",
+    name: "FindMeOnGithub",
+    date: "Feb 2025",
+    tags: ["React", "GitHub API", "JavaScript", "Vercel"],
+    bullets: [
+      "Web platform that lets you look up any GitHub user and instantly see their full profile — repos, followers, contributions, bio, and pinned projects — in a clean, card-based dashboard.",
+      "Integrates with the GitHub REST API to surface real-time stats; designed for developers, recruiters, and open-source enthusiasts who want a quick, shareable profile snapshot.",
+    ],
+    link: "https://profile-finder-sid.vercel.app/",
+  },
+  {
+    id: "ai-book-summarizer",
+    name: "AIBookSummarizer",
+    date: "Jan 2025",
+    tags: ["React", "JavaScript", "C++", "Tailwind"],
+    bullets: [
+      "Dynamic platform providing concise, accurate summaries of published books for students seeking quick insights.",
+      <>
+        Led a cross-functional team to build a responsive UI. Won{" "}
+        <strong style={{ color: "var(--ac2)" }}>Best Project of the Semester</strong>{" "}
+        for innovation &amp; execution.
+      </>,
+    ],
+    link: "#",
+  },
+  {
+    id: "git-commands-reference",
+    name: "Git Commands Reference",
+    date: "Nov 2024",
+    tags: ["HTML", "CSS", "JavaScript", "Vercel"],
+    bullets: [
+      "Interactive reference site for learning and practicing Git commands, with categorised sections covering branching, merging, rebasing, and remote workflows.",
+      "Built as a quick-access cheatsheet for developers of all levels; each command includes usage examples, flags, and common pitfalls.",
+    ],
+    link: "https://git-commands-by-sid.vercel.app/",
+  },
+  {
+    id: "careomatic",
+    name: "CareOmatic",
+    date: "Dec 2024",
+    tags: ["HTML", "CSS", "JavaScript"],
+    bullets: [
+      "Centralized pet-care platform for managing accessories, grooming, shopping, and veterinary support.",
+      "Architected product catalog, appointment scheduling, and user management modules with a fully responsive UI.",
+    ],
+    link: "https://careomatic.vercel.app/",
+  },
+];
+
+const INITIAL_VISIBLE = 3;
+
 export default function Projects() {
+  const [expanded, setExpanded] = useState(false);
+
+  const visibleProjects = expanded ? projects : projects.slice(0, INITIAL_VISIBLE);
+  const hiddenCount = projects.length - INITIAL_VISIBLE;
+
   return (
     <section id="projects">
       <div className="sec-head reveal">
@@ -32,176 +141,66 @@ export default function Projects() {
       </div>
 
       <div className="proj-grid">
+        {visibleProjects.map((proj) => (
+          <BorderGlow
+            key={proj.id}
+            className="proj-card reveal"
+            backgroundColor="var(--bg1)"
+            style={{ background: "transparent", border: "none" }}
+          >
+            <div className="proj-top">
+              <h3 className="proj-name">{proj.name}</h3>
+              <span className="proj-date">{proj.date}</span>
+            </div>
+            <div className="atags">
+              {proj.tags.map((tag) => (
+                <span key={tag} className="atag">{tag}</span>
+              ))}
+            </div>
+            <div className="bullets">
+              {proj.bullets.map((bullet, i) => (
+                <div key={i} className="bullet">{bullet}</div>
+              ))}
+            </div>
+            {proj.link !== "#" ? (
+              <a
+                href={proj.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="proj-link"
+              >
+                View Project <ArrowIcon />
+              </a>
+            ) : (
+              <a href="#" className="proj-link">
+                View Project <ArrowIcon />
+              </a>
+            )}
+          </BorderGlow>
+        ))}
+      </div>
 
-        {/* Real Estate Platform */}
-        <BorderGlow className="proj-card reveal" backgroundColor="var(--bg1)" style={{ background: 'transparent', border: 'none' }}>
-          <div className="proj-top">
-            <h3 className="proj-name">Real Estate Platform</h3>
-            <span className="proj-date">May 2025</span>
-          </div>
-          <div className="atags">
-            <span className="atag">React</span>
-            <span className="atag">Node.js</span>
-            <span className="atag">Tailwind</span>
-            <span className="atag">Vercel</span>
-          </div>
-          <div className="bullets">
-            <div className="bullet">
-              Engineered a fully responsive real estate platform with property
-              listing, advanced search &amp; filters, and secure contact management.
-            </div>
-            <div className="bullet">
-              Deployed via CI/CD on Vercel; adopted by a local real estate firm
-              demonstrating real-world commercial impact.
-            </div>
-          </div>
-          <a href="https://realestatefrontend-sooty.vercel.app/" target="_blank" rel="noopener noreferrer" className="proj-link">
-            View Project <ArrowIcon />
-          </a>
-        </BorderGlow>
-
-        {/* LeatherCAD */}
-        <BorderGlow className="proj-card reveal" backgroundColor="var(--bg1)" style={{ background: 'transparent', border: 'none' }}>
-          <div className="proj-top">
-            <h3 className="proj-name">LeatherCAD</h3>
-            <span className="proj-date">Mar 2025</span>
-          </div>
-          <div className="atags">
-            <span className="atag">React</span>
-            <span className="atag">Node.js</span>
-            <span className="atag">Canvas API</span>
-            <span className="atag">Vercel</span>
-          </div>
-          <div className="bullets">
-            <div className="bullet">
-              Web-based CAD platform purpose-built for leather product design,
-              enabling small entrepreneurs to sketch, measure, and iterate on
-              patterns without expensive desktop software.
-            </div>
-            <div className="bullet">
-              Features an interactive canvas editor with real-time shape tools,
-              dimension snapping, and export functionality — streamlining the
-              design-to-production workflow.
-            </div>
-          </div>
-          <a href="https://leather-cad.vercel.app/" target="_blank" rel="noopener noreferrer" className="proj-link">
-            View Project <ArrowIcon />
-          </a>
-        </BorderGlow>
-
-        {/* FindMeOnGithub */}
-        <BorderGlow className="proj-card reveal" backgroundColor="var(--bg1)" style={{ background: 'transparent', border: 'none' }}>
-          <div className="proj-top">
-            <h3 className="proj-name">FindMeOnGithub</h3>
-            <span className="proj-date">Feb 2025</span>
-          </div>
-          <div className="atags">
-            <span className="atag">React</span>
-            <span className="atag">GitHub API</span>
-            <span className="atag">JavaScript</span>
-            <span className="atag">Vercel</span>
-          </div>
-          <div className="bullets">
-            <div className="bullet">
-              Web platform that lets you look up any GitHub user and instantly
-              see their full profile — repos, followers, contributions, bio, and
-              pinned projects — in a clean, card-based dashboard.
-            </div>
-            <div className="bullet">
-              Integrates with the GitHub REST API to surface real-time stats;
-              designed for developers, recruiters, and open-source enthusiasts
-              who want a quick, shareable profile snapshot.
-            </div>
-          </div>
-          <a href="https://profile-finder-sid.vercel.app/" target="_blank" rel="noopener noreferrer" className="proj-link">
-            View Project <ArrowIcon />
-          </a>
-        </BorderGlow>
-
-        {/* AIBookSummarizer */}
-        <BorderGlow className="proj-card reveal" backgroundColor="var(--bg1)" style={{ background: 'transparent', border: 'none' }}>
-          <div className="proj-top">
-            <h3 className="proj-name">AIBookSummarizer</h3>
-            <span className="proj-date">Jan 2025</span>
-          </div>
-          <div className="atags">
-            <span className="atag">React</span>
-            <span className="atag">JavaScript</span>
-            <span className="atag">C++</span>
-            <span className="atag">Tailwind</span>
-          </div>
-          <div className="bullets">
-            <div className="bullet">
-              Dynamic platform providing concise, accurate summaries of published
-              books for students seeking quick insights.
-            </div>
-            <div className="bullet">
-              Led a cross-functional team to build a responsive UI. Won{" "}
-              <strong style={{ color: "var(--ac2)" }}>
-                Best Project of the Semester
-              </strong>{" "}
-              for innovation &amp; execution.
-            </div>
-          </div>
-          <a href="#" className="proj-link">
-            View Project <ArrowIcon />
-          </a>
-        </BorderGlow>
-
-        {/* Git Commands Reference */}
-        <BorderGlow className="proj-card reveal" backgroundColor="var(--bg1)" style={{ background: 'transparent', border: 'none' }}>
-          <div className="proj-top">
-            <h3 className="proj-name">Git Commands Reference</h3>
-            <span className="proj-date">Nov 2024</span>
-          </div>
-          <div className="atags">
-            <span className="atag">HTML</span>
-            <span className="atag">CSS</span>
-            <span className="atag">JavaScript</span>
-            <span className="atag">Vercel</span>
-          </div>
-          <div className="bullets">
-            <div className="bullet">
-              Interactive reference site for learning and practicing Git commands,
-              with categorised sections covering branching, merging, rebasing,
-              and remote workflows.
-            </div>
-            <div className="bullet">
-              Built as a quick-access cheatsheet for developers of all levels;
-              each command includes usage examples, flags, and common pitfalls.
-            </div>
-          </div>
-          <a href="https://git-commands-by-sid.vercel.app/" target="_blank" rel="noopener noreferrer" className="proj-link">
-            View Project <ArrowIcon />
-          </a>
-        </BorderGlow>
-
-        {/* CareOmatic */}
-        <BorderGlow className="proj-card reveal" backgroundColor="var(--bg1)" style={{ background: 'transparent', border: 'none' }}>
-          <div className="proj-top">
-            <h3 className="proj-name">CareOmatic</h3>
-            <span className="proj-date">Dec 2024</span>
-          </div>
-          <div className="atags">
-            <span className="atag">HTML</span>
-            <span className="atag">CSS</span>
-            <span className="atag">JavaScript</span>
-          </div>
-          <div className="bullets">
-            <div className="bullet">
-              Centralized pet-care platform for managing accessories, grooming,
-              shopping, and veterinary support.
-            </div>
-            <div className="bullet">
-              Architected product catalog, appointment scheduling, and user
-              management modules with a fully responsive UI.
-            </div>
-          </div>
-          <a href="https://careomatic.vercel.app/" target="_blank" rel="noopener noreferrer" className="proj-link">
-            View Project <ArrowIcon />
-          </a>
-        </BorderGlow>
-
+      {/* View More / View Less button */}
+      <div className="proj-toggle-wrap">
+        <button
+          className="proj-toggle-btn"
+          onClick={() => {
+            if (expanded) {
+              // Scroll back into projects section smoothly before collapsing
+              const section = document.getElementById("projects");
+              if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+              setTimeout(() => setExpanded(false), 300);
+            } else {
+              setExpanded(true);
+            }
+          }}
+          aria-expanded={expanded}
+        >
+          <span>
+            {expanded ? `View Less` : `View ${hiddenCount} More Projects`}
+          </span>
+          <ChevronIcon expanded={expanded} />
+        </button>
       </div>
     </section>
   );

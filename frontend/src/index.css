@@ -725,6 +725,58 @@ section {
   gap: 10px;
 }
 
+/* PROJECTS TOGGLE */
+.proj-toggle-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+.proj-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: clamp(0.82rem, 2.5vw, 1.05rem);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--t2);
+  background: var(--bg1);
+  border: 1px solid var(--line);
+  padding: 10px 24px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all .25s;
+  position: relative;
+  overflow: hidden;
+}
+
+.proj-toggle-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--asoft);
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.proj-toggle-btn:hover {
+  border-color: var(--ac);
+  color: var(--ac2);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--aglow);
+}
+
+.proj-toggle-btn:hover::before {
+  opacity: 1;
+}
+
+.proj-toggle-btn span,
+.proj-toggle-btn svg {
+  position: relative;
+  z-index: 1;
+}
+
 /* TRAINING */
 .train-card {
   background: var(--bg1);

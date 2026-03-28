@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import SplitText from "./SplitText";
 import MagicBento from './MagicBento';
 
@@ -24,21 +24,30 @@ const CERTS = [
   { color: '#0a0a0a', title: 'Binary Blitz', description: 'ISTE', label: '🏆', href: '/Binary Blitzpdf.pdf', span: 'col-span-2' },
 ];
 
-const MOBILE_PREVIEW = 4; // certs visible initially on mobile
+const INITIAL_VISIBLE = 4;
+
+const ChevronIcon = ({ expanded }) => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    style={{
+      transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+      transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+    }}
+  >
+    <path d="M6 9l6 6 6-6" />
+  </svg>
+);
 
 export default function Certifications() {
-  const [isMobile, setIsMobile] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  const visibleCerts = isMobile && !expanded ? CERTS.slice(0, MOBILE_PREVIEW) : CERTS;
-  const hiddenCount = CERTS.length - MOBILE_PREVIEW;
+  const visibleCerts = expanded ? CERTS : CERTS.slice(0, INITIAL_VISIBLE);
+  const hiddenCount = CERTS.length - INITIAL_VISIBLE;
 
   return (
     <section id="certifications">
@@ -80,17 +89,27 @@ export default function Certifications() {
         />
       </div>
 
-      {/* View More / Show Less — mobile only */}
-      {isMobile && (
-        <div className="cert-toggle-wrap">
-          <button
-            className="cert-view-more-btn"
-            onClick={() => setExpanded(prev => !prev)}
-          >
-            {expanded ? '↑ Show Less' : `View ${hiddenCount} More ↓`}
-          </button>
-        </div>
-      )}
+      {/* View More / View Less toggle */}
+      <div className="proj-toggle-wrap">
+        <button
+          className="proj-toggle-btn"
+          onClick={() => {
+            if (expanded) {
+              const section = document.getElementById("certifications");
+              if (section) section.scrollIntoView({ behavior: "smooth", block: "start" });
+              setTimeout(() => setExpanded(false), 300);
+            } else {
+              setExpanded(true);
+            }
+          }}
+          aria-expanded={expanded}
+        >
+          <span>
+            {expanded ? "View Less" : `View ${hiddenCount} More Certificates`}
+          </span>
+          <ChevronIcon expanded={expanded} />
+        </button>
+      </div>
     </section>
   );
 }
