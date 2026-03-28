@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import GooeyNav from './GooeyNav';
 import logo from '../assets/logo.png';
 import {
@@ -24,6 +24,8 @@ export default function Navbar({ toggleTheme, theme }) {
   const [isMobile, setIsMobile] = useState(
     () => typeof window !== 'undefined' && window.innerWidth < 768
   );
+  const navRef = useRef(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -32,10 +34,40 @@ export default function Navbar({ toggleTheme, theme }) {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  // Hide nav on scroll-down, show on scroll-up — mobile only
+  useEffect(() => {
+    if (!isMobile) {
+      // Ensure nav is always visible on desktop
+      navRef.current?.classList.remove('nav--hidden');
+      return;
+    }
+
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const nav = navRef.current;
+      if (!nav) return;
+
+      // Always show when near the top
+      if (currentY < 60) {
+        nav.classList.remove('nav--hidden');
+      } else if (currentY > lastScrollY.current + 4) {
+        // Scrolling DOWN — hide (ignore tiny jitter < 4px)
+        nav.classList.add('nav--hidden');
+      } else if (currentY < lastScrollY.current - 4) {
+        // Scrolling UP — show
+        nav.classList.remove('nav--hidden');
+      }
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isMobile]);
+
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
   return (
-    <nav>
+    <nav ref={navRef}>
       <div className="nav-logo">
         <img src={logo} alt="Logo" />
       </div>
@@ -113,7 +145,12 @@ export default function Navbar({ toggleTheme, theme }) {
         {isMobile && (
           <button
             className="qs-hamburger"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              const next = !mobileMenuOpen;
+              setMobileMenuOpen(next);
+              // Always show nav when opening the menu
+              if (next) navRef.current?.classList.remove('nav--hidden');
+            }}
             aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
           >
             {mobileMenuOpen ? '✕' : '☰'}
