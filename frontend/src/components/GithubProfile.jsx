@@ -168,59 +168,97 @@ export default function GithubProfile({ theme = 'dark' }) {
         <div className="sec-rule"></div>
       </div>
 
-      <div className="github-profile reveal" style={{ 
-        display: 'flex', 
-        alignItems: 'center', 
-        gap: '24px', 
-        marginBottom: '32px',
-        padding: '24px',
+      {/* Profile Card — matches LeetCode style */}
+      <div className="github-profile reveal" style={{
         background: 'var(--bg1)',
+        borderRadius: '12px',
+        padding: '24px',
         border: '1px solid var(--line)',
-        flexWrap: 'wrap'
+        boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+        marginBottom: '20px',
+        color: 'var(--t1)',
+        fontFamily: 'Inter, -apple-system, sans-serif'
       }}>
-        <img 
-          src={user.avatar_url} 
-          alt={`${user.login} avatar`} 
-          style={{ width: '80px', height: '80px', borderRadius: '50%', border: '2px solid var(--line)' }} 
-        />
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <h3 style={{ fontSize: '1.4rem', color: 'var(--t1)', fontWeight: '700', marginBottom: '4px' }}>
-            {user.name || user.login}
-          </h3>
-          <p style={{ fontFamily: 'var(--mono)', fontSize: '1.05rem', color: 'var(--t3)', marginBottom: '12px' }}>
-            {user.bio || 'Full Stack Developer'}
-          </p>
-          <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: '1.05rem', color: 'var(--t2)' }}>
-              <strong style={{ color: 'var(--ac)' }}>{user.public_repos}</strong> Repositories
-            </span>
-            <span style={{ fontFamily: 'var(--mono)', fontSize: '1.05rem', color: 'var(--t2)' }}>
-              <strong style={{ color: 'var(--ac)' }}>{user.followers}</strong> Followers
-            </span>
-          </div>
-          
-          <div style={{ marginTop: '32px', width: '100%', maxWidth: '100%', overflowX: 'auto', paddingBottom: '8px' }}>
-            <h4 style={{ fontSize: '1.1rem', color: 'var(--t2)', marginBottom: '16px', fontWeight: '500' }}>
-              Contribution Activity
-            </h4>
-            <GitHubCalendar 
-              username="siddhant766" 
-              colorScheme={theme}
-              fontSize={14}
-              blockSize={12}
-              blockMargin={4}
-              theme={{
-                light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
-                dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
-              }}
-            />
+        {/* Avatar + Name row */}
+        <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '16px' }}>
+          <img
+            src={user.avatar_url}
+            alt={`${user.login} avatar`}
+            style={{ width: '80px', height: '80px', borderRadius: '12px', objectFit: 'cover', flexShrink: 0 }}
+          />
+          <div>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '2px' }}>
+              {user.name || user.login}
+            </h3>
+            <p style={{ color: 'var(--t3)', fontSize: '0.9rem', marginBottom: '6px' }}>
+              @{user.login}
+            </p>
+            {user.bio && (
+              <p style={{ fontSize: '0.88rem', color: 'var(--t2)', lineHeight: 1.4 }}>
+                {user.bio}
+              </p>
+            )}
           </div>
         </div>
-        <a href={user.html_url} target="_blank" rel="noreferrer" className="btn btn-ghost" style={{ alignSelf: 'flex-start' }}>
+
+        {/* Stats row */}
+        <div style={{ display: 'flex', gap: '16px', fontSize: '0.85rem', color: 'var(--t2)', marginBottom: '16px' }}>
+          <span><strong style={{ color: 'var(--t1)' }}>{user.public_repos}</strong> Repositories</span>
+          <span><strong style={{ color: 'var(--t1)' }}>{user.followers}</strong> Followers</span>
+        </div>
+
+        {/* Follow button — full width like LeetCode's Edit Profile */}
+        <a
+          href={user.html_url}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            display: 'block',
+            textAlign: 'center',
+            background: 'var(--bg2)',
+            color: 'var(--ac)',
+            padding: '8px 0',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            fontSize: '0.95rem',
+            fontWeight: '500',
+            marginBottom: '24px',
+            border: '1px solid var(--line)'
+          }}
+        >
           Follow on GitHub
         </a>
       </div>
 
+      {/* Contribution Calendar Card */}
+      <div className="reveal" style={{
+        background: 'var(--bg1)',
+        borderRadius: '12px',
+        padding: '24px',
+        border: '1px solid var(--line)',
+        boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)',
+        marginBottom: '20px',
+        fontFamily: 'Inter, -apple-system, sans-serif'
+      }}>
+        <h4 style={{ fontSize: '1rem', color: 'var(--t2)', marginBottom: '16px', fontWeight: '500' }}>
+          Contribution Activity
+        </h4>
+        <div style={{ width: '100%', overflowX: 'auto', paddingBottom: '8px' }}>
+          <GitHubCalendar
+            username="siddhant766"
+            colorScheme={theme}
+            fontSize={14}
+            blockSize={12}
+            blockMargin={4}
+            theme={{
+              light: ['#ebedf0', '#9be9a8', '#40c463', '#30a14e', '#216e39'],
+              dark: ['#161b22', '#0e4429', '#006d32', '#26a641', '#39d353'],
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Repo Cards */}
       <div className="proj-grid">
         {repos.map((repo) => (
           <div className="proj-card reveal" key={repo.id}>
@@ -234,19 +272,19 @@ export default function GithubProfile({ theme = 'dark' }) {
                 </span>
               )}
             </div>
-            
+
             {repo.language && (
               <div className="atags" style={{ marginTop: '8px' }}>
                 <span className="atag">{repo.language}</span>
               </div>
             )}
-            
+
             <div className="bullets" style={{ marginTop: '12px', marginBottom: '16px' }}>
               <div className="bullet">
                 {repo.description || 'No description available for this repository.'}
               </div>
             </div>
-            
+
             <a href={repo.html_url} target="_blank" rel="noreferrer" className="proj-link" style={{ marginTop: 'auto' }}>
               View Repository{' '}
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
