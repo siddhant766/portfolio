@@ -144,7 +144,7 @@ export default function Projects() {
         {visibleProjects.map((proj) => (
           <BorderGlow
             key={proj.id}
-            className="proj-card reveal"
+            className="proj-card"
             backgroundColor="var(--bg1)"
             style={{ background: "transparent", border: "none" }}
           >
