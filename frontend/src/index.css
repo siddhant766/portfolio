@@ -1460,6 +1460,17 @@ footer {
   color: var(--t1);
 }
 
+.qs-tile.active {
+  background: var(--ac);
+  border-color: var(--ac);
+  color: #fff !important;
+}
+
+.qs-tile.active .qs-tile-icon {
+  background: rgba(255, 255, 255, 0.2) !important;
+  color: #fff !important;
+}
+
 /* Icon badge inside tile */
 .qs-tile-icon {
   display: flex;

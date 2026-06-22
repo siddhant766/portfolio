@@ -10,13 +10,13 @@ const GooeyNav = ({
   particleR = 100,
   timeVariance = 300,
   colors = [1, 2, 3, 1, 2, 3, 1, 4],
-  initialActiveIndex = -1
+  activeIndex = -1,
+  onActiveIndexChange
 }) => {
   const containerRef = useRef(null);
   const navRef = useRef(null);
   const filterRef = useRef(null);
   const textRef = useRef(null);
-  const [activeIndex, setActiveIndex] = useState(initialActiveIndex);
 
   const noise = (n = 1) => n / 2 - Math.random() * n;
 
@@ -98,7 +98,9 @@ const GooeyNav = ({
     const liEl = e.currentTarget;
     if (activeIndex === index) return;
 
-    setActiveIndex(index);
+    if (onActiveIndexChange) {
+      onActiveIndexChange(index);
+    }
     updateEffectPosition(liEl);
 
     if (filterRef.current) {
@@ -133,6 +135,15 @@ const GooeyNav = ({
     if (activeLi) {
       updateEffectPosition(activeLi);
       textRef.current?.classList.add('active');
+    } else {
+      if (filterRef.current) {
+        Object.assign(filterRef.current.style, { left: '0px', top: '0px', width: '0px', height: '0px' });
+      }
+      if (textRef.current) {
+        Object.assign(textRef.current.style, { left: '0px', top: '0px', width: '0px', height: '0px' });
+        textRef.current.innerText = '';
+        textRef.current?.classList.remove('active');
+      }
     }
 
     const resizeObserver = new ResizeObserver(() => {

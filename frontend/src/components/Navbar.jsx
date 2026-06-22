@@ -27,11 +27,48 @@ export default function Navbar({ toggleTheme, theme }) {
   const navRef = useRef(null);
   const lastScrollY = useRef(0);
 
+  const [activeIndex, setActiveIndex] = useState(-1);
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Update active section on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      // Offset to determine when a section is considered active (near top of screen)
+      const scrollPosition = window.scrollY + 200;
+
+      // Special case: check if scrolled to the bottom of the page
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100) {
+        setActiveIndex(navItems.length - 1);
+        return;
+      }
+
+      const sectionIds = navItems.map(item => item.href.substring(1));
+      let currentActiveIndex = -1;
+
+      for (let i = 0; i < sectionIds.length; i++) {
+        const el = document.getElementById(sectionIds[i]);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          if (window.scrollY >= top - 250) { // 250px buffer before reaching section
+            currentActiveIndex = i;
+          }
+        }
+      }
+
+      setActiveIndex(currentActiveIndex);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Run once on load to set initial state
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Hide nav on scroll-down, show on scroll-up — mobile only
@@ -103,7 +140,8 @@ export default function Navbar({ toggleTheme, theme }) {
               particleCount={15}
               particleDistances={[90, 10]}
               particleR={300}
-              initialActiveIndex={-1}
+              activeIndex={activeIndex}
+              onActiveIndexChange={setActiveIndex}
               animationTime={600}
               timeVariance={400}
               colors={[1, 2, 3, 1, 2, 3, 1, 4]}
@@ -190,11 +228,11 @@ export default function Navbar({ toggleTheme, theme }) {
 
             {/* Nav tiles grid */}
             <div className="qs-grid">
-              {navItems.map(({ label, href, Icon }) => (
+              {navItems.map(({ label, href, Icon }, index) => (
                 <a
                   key={label}
                   href={href}
-                  className="qs-tile"
+                  className={`qs-tile ${activeIndex === index ? 'active' : ''}`}
                   onClick={closeMobileMenu}
                 >
                   <span className="qs-tile-icon"><Icon /></span>

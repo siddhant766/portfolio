@@ -107,6 +107,17 @@ const projects = [
     ],
     link: "https://careomatic.vercel.app/",
   },
+  {
+    id: "bl-agro-industries",
+    name: "BL Agro Industries",
+    date: "May 2026",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Vercel"],
+    bullets: [
+      "E-commerce platform showcasing and selling premium edible oils with a modern, responsive user experience.",
+      "Developed a robust full-stack application using the MERN stack, integrating product catalogs and customer interfaces.",
+    ],
+    link: "https://blagroindustry.vercel.app/",
+  },
 ];
 
 const INITIAL_VISIBLE = 3;
