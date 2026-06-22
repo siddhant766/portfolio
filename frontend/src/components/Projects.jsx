@@ -27,15 +27,15 @@ const ChevronIcon = ({ expanded }) => (
 
 const projects = [
   {
-    id: "git-workflow-visualizer",
-    name: "Git Workflow Visualizer",
-    date: "Mar 2025",
-    tags: ["React", "D3.js", "JavaScript", "Vercel"],
+    id: "bl-agro-industries",
+    name: "BL Agro Industries",
+    date: "May 2026",
+    tags: ["React", "Node.js", "Express", "MongoDB", "Vercel"],
     bullets: [
-      "Interactive visual tool that animates Git branching strategies — including GitFlow, trunk-based development, and feature branching — helping developers intuitively understand complex workflows.",
-      "Renders live commit graphs with branch lanes, merge arrows, and color-coded tags; users can step through each stage of a workflow to see exactly how commits propagate.",
+      "E-commerce platform showcasing and selling premium edible oils with a modern, responsive user experience.",
+      "Developed a robust full-stack application using the MERN stack, integrating product catalogs and customer interfaces.",
     ],
-    link: "https://git-workflow-visualizer.vercel.app/",
+    link: "https://blagroindustry.vercel.app/",
   },
   {
     id: "real-estate-platform",
@@ -58,6 +58,18 @@ const projects = [
       "Features an interactive canvas editor with real-time shape tools, dimension snapping, and export functionality — streamlining the design-to-production workflow.",
     ],
     link: "https://leather-cad.vercel.app/",
+  },
+  
+  {
+    id: "git-workflow-visualizer",
+    name: "Git Workflow Visualizer",
+    date: "Mar 2025",
+    tags: ["React", "D3.js", "JavaScript", "Vercel"],
+    bullets: [
+      "Interactive visual tool that animates Git branching strategies — including GitFlow, trunk-based development, and feature branching — helping developers intuitively understand complex workflows.",
+      "Renders live commit graphs with branch lanes, merge arrows, and color-coded tags; users can step through each stage of a workflow to see exactly how commits propagate.",
+    ],
+    link: "https://git-workflow-visualizer.vercel.app/",
   },
   {
     id: "findme-on-github",
@@ -107,17 +119,7 @@ const projects = [
     ],
     link: "https://careomatic.vercel.app/",
   },
-  {
-    id: "bl-agro-industries",
-    name: "BL Agro Industries",
-    date: "May 2026",
-    tags: ["React", "Node.js", "Express", "MongoDB", "Vercel"],
-    bullets: [
-      "E-commerce platform showcasing and selling premium edible oils with a modern, responsive user experience.",
-      "Developed a robust full-stack application using the MERN stack, integrating product catalogs and customer interfaces.",
-    ],
-    link: "https://blagroindustry.vercel.app/",
-  },
+  
 ];
 
 const INITIAL_VISIBLE = 3;
