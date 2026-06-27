@@ -95,7 +95,7 @@ const projects = [
         for innovation &amp; execution.
       </>,
     ],
-    link: "#",
+    link: "https://ai-book-summarizer-teal.vercel.app/",
   },
   {
     id: "git-commands-reference",
